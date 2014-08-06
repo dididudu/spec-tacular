@@ -17,23 +17,23 @@ class Objet(db.Model):
   updated = db.DateTimeProperty(auto_now=True)
 
 class Project(Objet):
-  nom = db.StringProperty()
+  name = db.StringProperty()
   description = db.TextProperty()
   def __str__(self):
-    return self.nom
+    return self.name
 
 class Actor(Objet):
   project = db.ReferenceProperty(Project, collection_name='actors')
-  nom = db.StringProperty()
+  name = db.StringProperty()
   description = db.TextProperty()
   def __str__(self):
-    return self.nom
+    return self.name
 
 class UseCase(Objet):
   project = db.ReferenceProperty(Project, collection_name='usecases')
-  nom = db.StringProperty()
+  name = db.StringProperty()
   description = db.TextProperty()
   def __str__(self):
-    return self.nom
+    return self.name
 
 
