@@ -9,6 +9,7 @@ import webapp2
 
 from actions import BaseRequestHandler
 from actions import AddProject
+from actions import EditProject
 from actions import ListProjects
 from actions import ViewProject
 
