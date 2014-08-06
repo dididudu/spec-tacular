@@ -14,6 +14,9 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 
+from models import Actor
+from models import Project
+from models import Usecase
 
 # Set to true if we want to have our webapp print stack traces, etc
 _DEBUG = True
