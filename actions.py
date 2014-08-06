@@ -37,67 +37,67 @@ class BaseRequestHandler(webapp2.RequestHandler):
     path = os.path.join(directory, os.path.join('templates', template_name))
     self.response.out.write(template.render(path, values, debug=_DEBUG))
 
-class AddProjet(webapp2.RequestHandler):
+class AddProject(webapp2.RequestHandler):
   def post(self):
-    logging.debug('Start projet adding request')
+    logging.debug('Start project adding request')
 
-    n = self.request.get('nom')
-    projet = Projet(nom=n,description='')
+    n = self.request.get('name')
+    project = Project(name=n,description='')
 
     user = users.GetCurrentUser()
     if user:
-      logging.info('Projet %s added by user %s' % (n, user.nickname()))
-      projet.created_by = user
-      projet.updated_by = user
+      logging.info('Project %s added by user %s' % (n, user.nickname()))
+      project.created_by = user
+      project.updated_by = user
     else:
-      logging.info('Projet %s added by anonymous user' % n)
+      logging.info('Project %s added by anonymous user' % n)
 
     try:
-      projet.put()
+      project.put()
     except:
       logging.error('There was an error adding projet %s' % n)
 
-    logging.debug('Finish projet adding')
-    self.redirect('/projets')
+    logging.debug('Finish project adding')
+    self.redirect('/projects')
 
-class ListProjets(BaseRequestHandler):
+class ListProjects(BaseRequestHandler):
   def get(self):
-    projets = []
+    projects = []
     title = 'Projets'
     try:
-      projets = Projet.gql("ORDER BY nom")
+      projects = Project.gql("ORDER BY nom")
       title = 'Projets'
     except:
-      logging.error('There was an error retreiving projets from the datastore')
+      logging.error('There was an error retreiving projects from the datastore')
 
     template_values = {
       'title': title,
-      'projets': projets,
+      'projects': projects,
       }
 
-    self.generate('projets.html', template_values)
+    self.generate('projects.html', template_values)
 
-class ViewProjet(BaseRequestHandler):
+class ViewProject(BaseRequestHandler):
   def get(self, arg):
     title = 'Projet introuvable'
-    projet = None
-    # Get and displays the projet informations
+    project = None
+    # Get and displays the project informations
     try:
       id = int(arg)
-      projet = Projet.get(db.Key.from_path('Projet', id))
+      project = Project.get(db.Key.from_path('Project', id))
     except:
-      projet = None
-      logging.error('There was an error retreiving projet and its informations from the datastore')
+      project = None
+      logging.error('There was an error retreiving project and its informations from the datastore')
 
-    if not projet:
+    if not project:
       self.error(403)
       return
     else:
-      title = projet.nom
+      title = project.name
 
     template_values = {
       'title': title,
-      'projet': projet
+      'project': project
       }
 
-    self.generate('projet.html', template_values)
+    self.generate('project.html', template_values)

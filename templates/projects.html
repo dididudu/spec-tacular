@@ -14,11 +14,11 @@
    </tr>
   </thead>
   <tbody>
-  {% for p in projets %}
+  {% for p in projects %}
    <tr>
-    <td><a href="/projet/{{ p.key.id }}">{{ p.nom }}</a></td>
+    <td><a href="/project/{{ p.key.id }}">{{ p.name }}</a></td>
     <td>{{ p.description }}</td>
-    <td><a href="/editProjet?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></td>
+    <td><a href="/editProject?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></td>
    </tr>
   {% endfor %}
   </tbody>
@@ -26,11 +26,11 @@
 {% endif %}
 
 {% if admin %}
- <form action="/addProjet" method="post">
+ <form action="/addProject" method="post">
   <table class="form">
    <tr>
     <td><label>Nom :</label></td>
-    <td><input name="nom" value=""/></td>
+    <td><input name="name" value=""/></td>
     <td><input class="submit" type="submit" value="Enregistrer"/></td>
    </tr>
   </table>
