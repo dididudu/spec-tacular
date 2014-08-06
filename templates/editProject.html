@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %} - Edition de projet{% endblock %}
+
+
+{% block body %}
+
+ <h4>Edition de projet</h4>
+
+{% if user %}
+
+    <form method="post" class="ink-form" action="{{ action }}">
+
+      <input type="hidden" name="_id" value="{{ id }}" />
+
+{% autoescape off %}
+
+      <fieldset class="column-group gutters">
+
+        <div class="control-group large-50 medium-50 small-100">
+          {{ form.name.label }}
+          <div class="control">
+            {{ form.name }}
+          </div>
+          {% if form.name.errors %}<p class="tip">{{form.name.errors}}</p>{% endif %}
+        </div>
+
+        <div class="control-group large-100 medium-100 small-100">
+          {{ form.description.label }}
+          <div class="control">
+            {{ form.description }}
+          </div>
+        </div>
+
+      </fieldset>
+
+{% endautoescape %}
+
+      <input type="submit" value="Enregistrer" />
+
+    </form>
+
+{% endif %}
+
+{% endblock %}

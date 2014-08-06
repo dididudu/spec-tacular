@@ -18,6 +18,10 @@ from models import Actor
 from models import Project
 from models import UseCase
 
+from forms import ActorForm
+from forms import ProjectForm
+from forms import UseCaseForm
+
 # Set to true if we want to have our webapp print stack traces, etc
 _DEBUG = True
 
@@ -65,7 +69,7 @@ class ListProjects(BaseRequestHandler):
     projects = []
     title = 'Projets'
     try:
-      projects = Project.gql("ORDER BY nom")
+      projects = Project.gql("ORDER BY name")
       title = 'Projets'
     except:
       logging.error('There was an error retreiving projects from the datastore')
@@ -101,3 +105,49 @@ class ViewProject(BaseRequestHandler):
       }
 
     self.generate('project.html', template_values)
+
+class EditProject(BaseRequestHandler):
+  def go(self, id, form):
+    values = {
+      'title': "Edition de projet",
+      'action': "/editProject",
+      'id': id,
+      'form': form
+    }
+    self.generate('editProject.html', values)
+
+  def get(self):
+    obj = None
+    try:
+      id = int(self.request.get('id'))
+      obj = Project.get(db.Key.from_path('Project', id))
+    except:
+      obj = None
+    if not obj:
+      self.error(403)
+      return
+    self.go(id, ProjectForm(None, obj))
+
+  def post(self):
+    obj = None
+    try:
+      id = int(self.request.get('_id'))
+      obj = Project.get(db.Key.from_path('Project', id))
+    except:
+      obj = None
+    if not obj:
+      self.error(403)
+      return
+    form = ProjectForm(self.request.POST, obj)
+    if form.validate():
+      logging.info('Project %d updated by user %s' % (id, users.GetCurrentUser().nickname()))
+      form.populate_obj(obj)
+      obj.updated_by = users.GetCurrentUser()
+      try:
+        obj.put()
+      except:
+        logging.error('There was an error updating Project %s' % self.request.get('name'))
+      self.redirect('/project/%s' % id)
+    else:
+      self.go(id, form)
+

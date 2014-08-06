@@ -22,6 +22,7 @@ class MainPage(BaseRequestHandler):
 application = webapp2.WSGIApplication([
   ('/', MainPage),
   ('/addProject', AddProject),
+  ('/editProject', EditProject),
   ('/project/([-\w]+)', ViewProject),
   ('/projects', ListProjects),
 ], debug=True)
