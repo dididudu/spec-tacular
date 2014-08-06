@@ -86,7 +86,7 @@
 
                 <nav class="ink-navigation ink-grid">
                     <ul class="menu horizontal black">
-                        <li><a href="/">{{ application_name }}</a></li>
+                        <li><b><a href="/">{{ application_name }}</a></b></li>
 		        {% if user %}
                         <li><a href="{{ logout_url }}">Logout</a></li>
 		        {% else %}
@@ -113,10 +113,6 @@
         </div>
         <footer class="clearfix">
             <div class="ink-grid">
-                <ul class="unstyled inline half-vertical-space">
-                    <li class="active"><a href="/about">About</a></li>
-                    <li><a href="/contacts">Contacts</a></li>
-                </ul>
                 <p class="note">&copy; Copyright 2014 Spec-Tacular</p>
             </div>
         </footer>
