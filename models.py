@@ -18,11 +18,22 @@ class Objet(db.Model):
 
 class Project(Objet):
   nom = db.StringProperty()
+  description = db.TextProperty()
+  def __str__(self):
+    return self.nom
 
 class Actor(Objet):
+  project = db.ReferenceProperty(Project, collection_name='actors')
   nom = db.StringProperty()
+  description = db.TextProperty()
+  def __str__(self):
+    return self.nom
 
 class UseCase(Objet):
+  project = db.ReferenceProperty(Project, collection_name='usecases')
   nom = db.StringProperty()
+  description = db.TextProperty()
+  def __str__(self):
+    return self.nom
 
 
