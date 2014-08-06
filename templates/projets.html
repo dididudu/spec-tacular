@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block description %}Projets{% endblock %}
+
+{% block body %}
+
+{% if user %}
+ <table class="ink-table alternating hover">
+  <thead>
+   <tr>
+    <th>Projet</th>
+    <th class="hide-small show-medium show-large">Description</th>
+    <th>&nbsp;</th>
+   </tr>
+  </thead>
+  <tbody>
+  {% for p in projets %}
+   <tr>
+    <td><a href="/projet/{{ p.key.id }}">{{ p.nom }}</a></td>
+    <td>{{ p.description }}</td>
+    <td><a href="/editProjet?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></td>
+   </tr>
+  {% endfor %}
+  </tbody>
+ </table>
+{% endif %}
+
+{% if admin %}
+ <form action="/addProjet" method="post">
+  <table class="form">
+   <tr>
+    <td><label>Nom :</label></td>
+    <td><input name="nom" value=""/></td>
+    <td><input class="submit" type="submit" value="Enregistrer"/></td>
+   </tr>
+  </table>
+ </form>
+{% endif %}
+
+{% endblock %}

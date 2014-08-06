@@ -8,6 +8,9 @@ __author__ = 'Didier Dulac'
 import webapp2
 
 from actions import BaseRequestHandler
+from actions import AddProjet
+from actions import ListProjets
+from actions import ViewProjet
 
 class MainPage(BaseRequestHandler):
   def get(self):
@@ -17,5 +20,8 @@ class MainPage(BaseRequestHandler):
 
 
 application = webapp2.WSGIApplication([
-  ('/', MainPage)
+  ('/', MainPage),
+  ('/addProjet', AddProjet),
+  ('/projet/([-\w]+)', ViewProjet),
+  ('/projets', ListProjets),
 ], debug=True)

@@ -88,6 +88,7 @@
                     <ul class="menu horizontal black">
                         <li><b><a href="/">{{ application_name }}</a></b></li>
 		        {% if user %}
+                        <li><a href="/projets">Projets</a></li>
                         <li><a href="{{ logout_url }}">Logout</a></li>
 		        {% else %}
                         <li><a href="{{ login_url }}">Login</a></li>

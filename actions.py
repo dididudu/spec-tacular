@@ -37,3 +37,67 @@ class BaseRequestHandler(webapp2.RequestHandler):
     path = os.path.join(directory, os.path.join('templates', template_name))
     self.response.out.write(template.render(path, values, debug=_DEBUG))
 
+class AddProjet(webapp2.RequestHandler):
+  def post(self):
+    logging.debug('Start projet adding request')
+
+    n = self.request.get('nom')
+    projet = Projet(nom=n,description='')
+
+    user = users.GetCurrentUser()
+    if user:
+      logging.info('Projet %s added by user %s' % (n, user.nickname()))
+      projet.created_by = user
+      projet.updated_by = user
+    else:
+      logging.info('Projet %s added by anonymous user' % n)
+
+    try:
+      projet.put()
+    except:
+      logging.error('There was an error adding projet %s' % n)
+
+    logging.debug('Finish projet adding')
+    self.redirect('/projets')
+
+class ListProjets(BaseRequestHandler):
+  def get(self):
+    projets = []
+    title = 'Projets'
+    try:
+      projets = Projet.gql("ORDER BY nom")
+      title = 'Projets'
+    except:
+      logging.error('There was an error retreiving projets from the datastore')
+
+    template_values = {
+      'title': title,
+      'projets': projets,
+      }
+
+    self.generate('projets.html', template_values)
+
+class ViewProjet(BaseRequestHandler):
+  def get(self, arg):
+    title = 'Projet introuvable'
+    projet = None
+    # Get and displays the projet informations
+    try:
+      id = int(arg)
+      projet = Projet.get(db.Key.from_path('Projet', id))
+    except:
+      projet = None
+      logging.error('There was an error retreiving projet and its informations from the datastore')
+
+    if not projet:
+      self.error(403)
+      return
+    else:
+      title = projet.nom
+
+    template_values = {
+      'title': title,
+      'projet': projet
+      }
+
+    self.generate('projet.html', template_values)

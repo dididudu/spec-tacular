@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} - Projet {{ projet.nom }}{% endblock %}
+{% block description %}Projet {{ projet.nom }}{% endblock %}
+
+{% block body %}
+
+ <h4>Projet {{ projet.nom }}</h4>
+
+{% if user %}
+
+{% if projet.description %}
+{% autoescape off %}{{ projet.description }}{% endautoescape %}
+{% endif %}
+
+{% if admin %}
+<p class="submit"><a href="/editProjet?id={{ projet.key.id }}">Editer</a></p>
+{% endif %}
+
+{% endif %}
+{% endblock %}
