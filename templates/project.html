@@ -38,7 +38,7 @@
 
 {% if admin %}
  <form action="/addActor" method="post">
-  <input type="hidden" name="id" value="project.key.id" />
+  <input type="hidden" name="id" value="{{ project.key.id }}" />
   <table class="form">
    <tr>
     <td><label>Acteur&nbsp;:&nbsp;</label></td>
