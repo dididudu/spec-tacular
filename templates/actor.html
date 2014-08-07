@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %} - Acteur {{ actor.name }}{% endblock %}
+{% block description %}Acteur {{ actor.name }}{% endblock %}
+
+{% block body %}
+
+ <h4>Actor {{ actor.name }}</h4>
+
+{% if user %}
+
+{% if actor.description %}
+{% autoescape off %}{{ actor.description }}{% endautoescape %}
+{% endif %}
+
+{% if admin %}
+<p class="submit"><a href="/editActor?id={{ actor.key.id }}">Editer</a></p>
+{% endif %}
+
+{% endif %}
+{% endblock %}
