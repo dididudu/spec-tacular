@@ -64,6 +64,37 @@ class AddProject(webapp2.RequestHandler):
     logging.debug('Finish project adding')
     self.redirect('/projects')
 
+class AddActor(webapp2.RequestHandler):
+  def post(self):
+    logging.debug('Start actor adding request')
+
+    i = self.request.get('id')
+    n = self.request.get('name')
+    actor = Actor(name=n,description='')
+
+    try:
+      id = int(i)
+      project = Project.get(db.Key.from_path('Project', id))
+      actor.project = project
+    except:
+      logging.error('There was an error retreiving project from the datastore')
+
+    user = users.GetCurrentUser()
+    if user:
+      logging.info('Actor %s added by user %s' % (n, user.nickname()))
+      actor.created_by = user
+      actor.updated_by = user
+    else:
+      logging.info('Actor %s added by anonymous user' % n)
+
+    try:
+      actor.put()
+    except:
+      logging.error('There was an error adding actor %s' % n)
+
+    logging.debug('Finish actor adding')
+    self.redirect('/project/%s' % id)
+
 class ListProjects(BaseRequestHandler):
   def get(self):
     projects = []

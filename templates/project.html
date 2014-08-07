@@ -17,5 +17,37 @@
 <p class="submit"><a href="/editProject?id={{ project.key.id }}">Editer</a></p>
 {% endif %}
 
+ <table class="ink-table alternating hover">
+  <thead>
+   <tr>
+    <th>Acteur</th>
+    <th>Description</th>
+    <th>&nbsp;</th>
+   </tr>
+  </thead>
+  <tbody>
+  {% for a in project.actors %}
+   <tr>
+    <td><a href="/actor/{{ a.key.id }}">{{ a.name }}</a></td>
+    <td>{{ a.description }}</td>
+    <td><a href="/editActor?id={{ a.key.id }}"><i class="fa fa-edit"></i></a></td>
+   </tr>
+  {% endfor %}
+  </tbody>
+ </table>
+
+{% if admin %}
+ <form action="/addActor" method="post">
+  <input type="hidden" name="id" value="project.key.id" />
+  <table class="form">
+   <tr>
+    <td><label>Acteur&nbsp;:&nbsp;</label></td>
+    <td><input name="name" value=""/></td>
+    <td><input class="submit" type="submit" value="Ajouter"/></td>
+   </tr>
+  </table>
+ </form>
+{% endif %}
+
 {% endif %}
 {% endblock %}
