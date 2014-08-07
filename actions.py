@@ -93,7 +93,7 @@ class AddActor(webapp2.RequestHandler):
       logging.error('There was an error adding actor %s' % n)
 
     logging.debug('Finish actor adding')
-    self.redirect('/project/%s' % id)
+    self.redirect('/project/%s' % i)
 
 class ListProjects(BaseRequestHandler):
   def get(self):
@@ -111,6 +111,31 @@ class ListProjects(BaseRequestHandler):
       }
 
     self.generate('projects.html', template_values)
+
+class ViewActor(BaseRequestHandler):
+  def get(self, arg):
+    title = 'Acteur introuvable'
+    actor = None
+    # Get and displays the actor informations
+    try:
+      id = int(arg)
+      actor = Actor.get(db.Key.from_path('Actor', id))
+    except:
+      actor = None
+      logging.error('There was an error retreiving actor and its informations from the datastore')
+
+    if not actor:
+      self.error(403)
+      return
+    else:
+      title = actor.name
+
+    template_values = {
+      'title': title,
+      'actor': actor
+      }
+
+    self.generate('actor.html', template_values)
 
 class ViewProject(BaseRequestHandler):
   def get(self, arg):
