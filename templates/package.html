@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} - Package {{ package.name }}{% endblock %}
+{% block description %}Package {{ package.name }}{% endblock %}
+
+{% block body %}
+
+ <h4>Package {{ package.name }}</h4>
+
+{% if user %}
+
+<p>Projet : <a href="/project/{{ package.project.key.id }}">{{ package.project.name }}</a></p>
+
+{% if package.description %}
+{% autoescape off %}{{ package.description }}{% endautoescape %}
+{% endif %}
+
+{% if admin %}
+<p class="submit"><a href="/editPackage?id={{ package.key.id }}">Editer</a></p>
+{% endif %}
+
+{% endif %}
+{% endblock %}

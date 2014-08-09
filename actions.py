@@ -170,6 +170,31 @@ class ViewActor(BaseRequestHandler):
 
     self.generate('actor.html', template_values)
 
+class ViewPackage(BaseRequestHandler):
+  def get(self, arg):
+    title = 'Package introuvable'
+    package = None
+    # Get and displays the package informations
+    try:
+      id = int(arg)
+      package = Package.get(db.Key.from_path('Package', id))
+    except:
+      package = None
+      logging.error('There was an error retreiving package and its informations from the datastore')
+
+    if not package:
+      self.error(403)
+      return
+    else:
+      title = package.name
+
+    template_values = {
+      'title': title,
+      'package': package
+      }
+
+    self.generate('package.html', template_values)
+
 class ViewProject(BaseRequestHandler):
   def get(self, arg):
     title = 'Projet introuvable'
