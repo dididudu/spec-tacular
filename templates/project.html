@@ -30,7 +30,7 @@
   {% for a in project.actors %}
    <tr>
     <td><a href="/actor/{{ a.key.id }}">{{ a.name }}</a></td>
-    <td>{{ a.type }}</td>
+    <td><i class="fa fa-{{ a.type }}"></i></td>
     <td>{{ a.description }}</td>
     <td><a href="/editActor?id={{ a.key.id }}"><i class="fa fa-edit"></i></a></td>
    </tr>
