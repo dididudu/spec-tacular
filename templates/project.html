@@ -51,5 +51,37 @@
  </form>
 {% endif %}
 
+ <table class="ink-table alternating hover">
+  <thead>
+   <tr>
+    <th>Package</th>
+    <th>Description</th>
+    <th>&nbsp;</th>
+   </tr>
+  </thead>
+  <tbody>
+  {% for p in project.packages %}
+   <tr>
+    <td><a href="/package/{{ p.key.id }}">{{ p.name }}</a></td>
+    <td>{{ p.description }}</td>
+    <td><a href="/editPackage?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></td>
+   </tr>
+  {% endfor %}
+  </tbody>
+ </table>
+
+{% if admin %}
+ <form action="/addPackage" method="post">
+  <input type="hidden" name="id" value="{{ project.key.id }}" />
+  <table class="form">
+   <tr>
+    <td><label>Package&nbsp;:&nbsp;</label></td>
+    <td><input name="name" value=""/></td>
+    <td><input class="submit" type="submit" value="Ajouter"/></td>
+   </tr>
+  </table>
+ </form>
+{% endif %}
+
 {% endif %}
 {% endblock %}

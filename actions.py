@@ -20,6 +20,7 @@ from models import Project
 from models import UseCase
 
 from forms import ActorForm
+from forms import PackageForm
 from forms import ProjectForm
 from forms import UseCaseForm
 
@@ -41,29 +42,6 @@ class BaseRequestHandler(webapp2.RequestHandler):
     directory = os.path.dirname(__file__)
     path = os.path.join(directory, os.path.join('templates', template_name))
     self.response.out.write(template.render(path, values, debug=_DEBUG))
-
-class AddProject(webapp2.RequestHandler):
-  def post(self):
-    logging.debug('Start project adding request')
-
-    n = self.request.get('name')
-    project = Project(name=n,description='')
-
-    user = users.GetCurrentUser()
-    if user:
-      logging.info('Project %s added by user %s' % (n, user.nickname()))
-      project.created_by = user
-      project.updated_by = user
-    else:
-      logging.info('Project %s added by anonymous user' % n)
-
-    try:
-      project.put()
-    except:
-      logging.error('There was an error adding projet %s' % n)
-
-    logging.debug('Finish project adding')
-    self.redirect('/projects')
 
 class AddActor(webapp2.RequestHandler):
   def post(self):
@@ -95,6 +73,60 @@ class AddActor(webapp2.RequestHandler):
 
     logging.debug('Finish actor adding')
     self.redirect('/project/%s' % i)
+
+class AddPackage(webapp2.RequestHandler):
+  def post(self):
+    logging.debug('Start package adding request')
+
+    i = self.request.get('id')
+    n = self.request.get('name')
+    package = Package(name=n,description='')
+
+    try:
+      id = int(i)
+      project = Project.get(db.Key.from_path('Project', id))
+      package.project = project
+    except:
+      logging.error('There was an error retreiving project from the datastore')
+
+    user = users.GetCurrentUser()
+    if user:
+      logging.info('Package %s added by user %s' % (n, user.nickname()))
+      package.created_by = user
+      package.updated_by = user
+    else:
+      logging.info('Package %s added by anonymous user' % n)
+
+    try:
+      package.put()
+    except:
+      logging.error('There was an error adding package %s' % n)
+
+    logging.debug('Finish package adding')
+    self.redirect('/project/%s' % i)
+
+class AddProject(webapp2.RequestHandler):
+  def post(self):
+    logging.debug('Start project adding request')
+
+    n = self.request.get('name')
+    project = Project(name=n,description='')
+
+    user = users.GetCurrentUser()
+    if user:
+      logging.info('Project %s added by user %s' % (n, user.nickname()))
+      project.created_by = user
+      project.updated_by = user
+    else:
+      logging.info('Project %s added by anonymous user' % n)
+
+    try:
+      project.put()
+    except:
+      logging.error('There was an error adding projet %s' % n)
+
+    logging.debug('Finish project adding')
+    self.redirect('/projects')
 
 class ListProjects(BaseRequestHandler):
   def get(self):
