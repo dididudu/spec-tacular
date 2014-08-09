@@ -21,6 +21,7 @@
   <thead>
    <tr>
     <th>Acteur</th>
+    <th>Type<th>
     <th>Description</th>
     <th>&nbsp;</th>
    </tr>
@@ -29,6 +30,7 @@
   {% for a in project.actors %}
    <tr>
     <td><a href="/actor/{{ a.key.id }}">{{ a.name }}</a></td>
+    <td>{{ a.type }}</td>
     <td>{{ a.description }}</td>
     <td><a href="/editActor?id={{ a.key.id }}"><i class="fa fa-edit"></i></a></td>
    </tr>
