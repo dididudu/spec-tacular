@@ -15,6 +15,7 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 
 from models import Actor
+from models import Package
 from models import Project
 from models import UseCase
 
@@ -161,6 +162,51 @@ class ViewProject(BaseRequestHandler):
       }
 
     self.generate('project.html', template_values)
+
+class EditActor(BaseRequestHandler):
+  def go(self, id, form):
+    values = {
+      'title': "Edition d'acteur",
+      'action': "/editActor",
+      'id': id,
+      'form': form
+    }
+    self.generate('editActor.html', values)
+
+  def get(self):
+    obj = None
+    try:
+      id = int(self.request.get('id'))
+      obj = Actor.get(db.Key.from_path('Actor', id))
+    except:
+      obj = None
+    if not obj:
+      self.error(403)
+      return
+    self.go(id, ActorForm(None, obj))
+
+  def post(self):
+    obj = None
+    try:
+      id = int(self.request.get('_id'))
+      obj = Actor.get(db.Key.from_path('Actor', id))
+    except:
+      obj = None
+    if not obj:
+      self.error(403)
+      return
+    form = ActorForm(self.request.POST, obj)
+    if form.validate():
+      logging.info('Actor %d updated by user %s' % (id, users.GetCurrentUser().nickname()))
+      form.populate_obj(obj)
+      obj.updated_by = users.GetCurrentUser()
+      try:
+        obj.put()
+      except:
+        logging.error('There was an error updating Actor %s' % self.request.get('name'))
+      self.redirect('/actor/%s' % id)
+    else:
+      self.go(id, form)
 
 class EditProject(BaseRequestHandler):
   def go(self, id, form):

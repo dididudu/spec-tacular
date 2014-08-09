@@ -22,6 +22,13 @@ class Project(Objet):
   def __str__(self):
     return self.name
 
+class Package(Objet):
+  project = db.ReferenceProperty(Project, collection_name='packages')
+  name = db.StringProperty()
+  description = db.TextProperty()
+  def __str__(self):
+    return self.name
+
 class Actor(Objet):
   project = db.ReferenceProperty(Project, collection_name='actors')
   name = db.StringProperty()

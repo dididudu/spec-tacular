@@ -10,6 +10,7 @@ import webapp2
 from actions import BaseRequestHandler
 from actions import AddActor
 from actions import AddProject
+from actions import EditActor
 from actions import EditProject
 from actions import ListProjects
 from actions import ViewActor
@@ -25,6 +26,7 @@ class MainPage(BaseRequestHandler):
 application = webapp2.WSGIApplication([
   ('/', MainPage),
   ('/addActor', AddActor),
+  ('/editActor', EditActor),
   ('/actor/([-\w]+)', ViewActor),
   ('/addProject', AddProject),
   ('/editProject', EditProject),
