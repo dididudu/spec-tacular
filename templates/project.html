@@ -30,7 +30,7 @@
   {% for a in project.actors %}
    <tr>
     <td><a href="/actor/{{ a.key.id }}">{{ a.name }}</a></td>
-    <td><i class="fa fa-{{ a.type }}"></i></td>
+    <td align="center"><i class="fa fa-{{ a.type }}"></i></td>
     <td>{{ a.description }}</td>
     <td><a href="/editActor?id={{ a.key.id }}"><i class="fa fa-edit"></i></a></td>
    </tr>
@@ -54,6 +54,7 @@
  <table class="ink-table alternating hover">
   <thead>
    <tr>
+    <th>&nbsp;</th>
     <th>Package</th>
     <th>Description</th>
     <th>&nbsp;</th>
@@ -62,6 +63,7 @@
   <tbody>
   {% for p in project.packages %}
    <tr>
+    <td align="center">{{ p.order }}</td>
     <td><a href="/package/{{ p.key.id }}">{{ p.name }}</a></td>
     <td>{{ p.description }}</td>
     <td><a href="/editPackage?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></td>
