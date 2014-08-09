@@ -32,7 +32,7 @@ class Package(Objet):
 class Actor(Objet):
   project = db.ReferenceProperty(Project, collection_name='actors')
   name = db.StringProperty()
-  kind = db.StringProperty()
+  type = db.StringProperty()
   description = db.TextProperty()
   def __str__(self):
     return self.name
