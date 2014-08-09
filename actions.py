@@ -265,6 +265,51 @@ class EditActor(BaseRequestHandler):
     else:
       self.go(id, form)
 
+class EditPackage(BaseRequestHandler):
+  def go(self, id, form):
+    values = {
+      'title': "Edition de package",
+      'action': "/editPackage",
+      'id': id,
+      'form': form
+    }
+    self.generate('editPackage.html', values)
+
+  def get(self):
+    obj = None
+    try:
+      id = int(self.request.get('id'))
+      obj = Package.get(db.Key.from_path('Package', id))
+    except:
+      obj = None
+    if not obj:
+      self.error(403)
+      return
+    self.go(id, PackageForm(None, obj))
+
+  def post(self):
+    obj = None
+    try:
+      id = int(self.request.get('_id'))
+      obj = Package.get(db.Key.from_path('Package', id))
+    except:
+      obj = None
+    if not obj:
+      self.error(403)
+      return
+    form = PackageForm(self.request.POST, obj)
+    if form.validate():
+      logging.info('Package %d updated by user %s' % (id, users.GetCurrentUser().nickname()))
+      form.populate_obj(obj)
+      obj.updated_by = users.GetCurrentUser()
+      try:
+        obj.put()
+      except:
+        logging.error('There was an error updating Package %s' % self.request.get('name'))
+      self.redirect('/package/%s' % id)
+    else:
+      self.go(id, form)
+
 class EditProject(BaseRequestHandler):
   def go(self, id, form):
     values = {

@@ -12,6 +12,7 @@ from actions import AddActor
 from actions import AddPackage
 from actions import AddProject
 from actions import EditActor
+from actions import EditPackage
 from actions import EditProject
 from actions import ListProjects
 from actions import ViewActor
@@ -31,6 +32,7 @@ application = webapp2.WSGIApplication([
   ('/editActor', EditActor),
   ('/actor/([-\w]+)', ViewActor),
   ('/addPackage', AddPackage),
+  ('/editPackage', EditPackage),
   ('/package/([-\w]+)', ViewPackage),
   ('/addProject', AddProject),
   ('/editProject', EditProject),
