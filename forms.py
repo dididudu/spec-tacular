@@ -19,6 +19,7 @@ class ProjectForm(Form):
 class ActorForm(Form):
   project = ReferencePropertyField(u'Projet', reference_class=Project)
   name = TextField(u'Nom', validators=[validators.required()])
+  kind = TextFiel(u'Type', validators=[validators.optional()])
   description = TextAreaField(u'Description', validators=[validators.optional()])
 
 class UseCaseForm(Form):
