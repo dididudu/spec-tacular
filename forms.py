@@ -20,6 +20,7 @@ class ProjectForm(Form):
 class PackageForm(Form):
   project = ReferencePropertyField(u'Projet', reference_class=Project)
   name = TextField(u'Nom', validators=[validators.required()])
+  order = IntegerField(u'Rang', validators=[validators.required()])
   description = TextAreaField(u'Description', validators=[validators.optional()])
 
 class ActorForm(Form):
@@ -31,4 +32,5 @@ class ActorForm(Form):
 class UseCaseForm(Form):
   project = ReferencePropertyField(u'Projet', reference_class=Project)
   name = TextField(u'Nom', validators=[validators.required()])
+  order = IntegerField(u'Rang', validators=[validators.required()])
   description = TextAreaField(u'Description', validators=[validators.optional()])

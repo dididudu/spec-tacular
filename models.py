@@ -25,6 +25,7 @@ class Project(Objet):
 class Package(Objet):
   project = db.ReferenceProperty(Project, collection_name='packages')
   name = db.StringProperty()
+  order = db.IntegerProperty()
   description = db.TextProperty()
   def __str__(self):
     return self.name
@@ -40,6 +41,7 @@ class Actor(Objet):
 class UseCase(Objet):
   project = db.ReferenceProperty(Project, collection_name='usecases')
   name = db.StringProperty()
+  order = db.IntegerProperty()
   description = db.TextProperty()
   def __str__(self):
     return self.name
