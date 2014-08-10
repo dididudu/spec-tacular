@@ -9,7 +9,10 @@
 
 {% if user %}
 
-<p>Package : <a href="/package/{{ usecase.package.key.id }}">{{ usecase.package.name }}</a></p>
+<p>
+ Package : <a href="/package/{{ usecase.package.key.id }}">{{ usecase.package.name }}</a>
+ (projet <a href="/project/{{ usecase.package.project.key.id }}">{{ usecase.package.project.name }}</a>)
+</p>
 
 {% if usecase.description %}
 {% autoescape off %}{{ usecase.description }}{% endautoescape %}
