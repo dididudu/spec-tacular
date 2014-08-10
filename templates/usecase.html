@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} - Use case {{ usecase.name }}{% endblock %}
+{% block description %}Use case {{ usecase.name }}{% endblock %}
+
+{% block body %}
+
+ <h4>Use Case {{ usecase.name }}</h4>
+
+{% if user %}
+
+<p>Package : <a href="/package/{{ usecase.package.key.id }}">{{ usecase.package.name }}</a></p>
+
+{% if usecase.description %}
+{% autoescape off %}{{ usecase.description }}{% endautoescape %}
+{% endif %}
+
+{% if admin %}
+<p class="submit"><a href="/editUseCase?id={{ usecase.key.id }}">Editer</a></p>
+{% endif %}
+
+{% endif %}
+{% endblock %}

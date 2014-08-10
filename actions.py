@@ -128,13 +128,13 @@ class AddProject(webapp2.RequestHandler):
     logging.debug('Finish project adding')
     self.redirect('/projects')
 
-class AddUsecase(webapp2.RequestHandler):
+class AddUseCase(webapp2.RequestHandler):
   def post(self):
     logging.debug('Start use case adding request')
 
     i = self.request.get('id')
     n = self.request.get('name')
-    usecase = Usecase(name=n,description='')
+    usecase = UseCase(name=n,description='')
 
     try:
       id = int(i)
@@ -250,6 +250,31 @@ class ViewProject(BaseRequestHandler):
       }
 
     self.generate('project.html', template_values)
+
+class ViewUseCase(BaseRequestHandler):
+  def get(self, arg):
+    title = 'Use case introuvable'
+    usecase = None
+    # Get and displays the use case informations
+    try:
+      id = int(arg)
+      usecase = UseCase.get(db.Key.from_path('UseCase', id))
+    except:
+      usecase = None
+      logging.error('There was an error retreiving use case and its informations from the datastore')
+
+    if not usecase:
+      self.error(403)
+      return
+    else:
+      title = usecase.name
+
+    template_values = {
+      'title': title,
+      'usecase': usecase
+      }
+
+    self.generate('usecase.html', template_values)
 
 class EditActor(BaseRequestHandler):
   def go(self, id, form):

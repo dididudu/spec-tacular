@@ -11,7 +11,7 @@ from actions import BaseRequestHandler
 from actions import AddActor
 from actions import AddPackage
 from actions import AddProject
-from actions import AddUsecase
+from actions import AddUseCase
 from actions import EditActor
 from actions import EditPackage
 from actions import EditProject
@@ -19,6 +19,7 @@ from actions import ListProjects
 from actions import ViewActor
 from actions import ViewPackage
 from actions import ViewProject
+from actions import ViewUseCase
 
 class MainPage(BaseRequestHandler):
   def get(self):
@@ -39,5 +40,6 @@ application = webapp2.WSGIApplication([
   ('/editProject', EditProject),
   ('/project/([-\w]+)', ViewProject),
   ('/projects', ListProjects),
-  ('/addUsecase', AddUsecase)
+  ('/addUseCase', AddUseCase),
+  ('/usecase/([-\w]+)', ViewUseCase)
 ], debug=True)
