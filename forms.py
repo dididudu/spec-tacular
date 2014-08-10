@@ -31,6 +31,7 @@ class ActorForm(Form):
 
 class UseCaseForm(Form):
   project = ReferencePropertyField(u'Projet', reference_class=Project)
+  package = ReferencePropertyField(u'Package', reference_class=Package)
   name = TextField(u'Nom', validators=[validators.required()])
   order = IntegerField(u'Rang', validators=[validators.required()])
   description = TextAreaField(u'Description', validators=[validators.optional()])

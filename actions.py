@@ -411,3 +411,48 @@ class EditProject(BaseRequestHandler):
     else:
       self.go(id, form)
 
+class EditUseCase(BaseRequestHandler):
+  def go(self, id, form):
+    values = {
+      'title': "Edition de use case",
+      'action': "/editUseCase",
+      'id': id,
+      'form': form
+    }
+    self.generate('editUsecase.html', values)
+
+  def get(self):
+    obj = None
+    try:
+      id = int(self.request.get('id'))
+      obj = UseCase.get(db.Key.from_path('UseCase', id))
+    except:
+      obj = None
+    if not obj:
+      self.error(403)
+      return
+    self.go(id, UseCaseForm(None, obj))
+
+  def post(self):
+    obj = None
+    try:
+      id = int(self.request.get('_id'))
+      obj = UseCase.get(db.Key.from_path('UseCase', id))
+    except:
+      obj = None
+    if not obj:
+      self.error(403)
+      return
+    form = UseCaseForm(self.request.POST, obj)
+    if form.validate():
+      logging.info('Use case %d updated by user %s' % (id, users.GetCurrentUser().nickname()))
+      form.populate_obj(obj)
+      obj.updated_by = users.GetCurrentUser()
+      try:
+        obj.put()
+      except:
+        logging.error('There was an error updating Use case %s' % self.request.get('name'))
+      self.redirect('/usecase/%s' % id)
+    else:
+      self.go(id, form)
+
