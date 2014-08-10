@@ -19,5 +19,39 @@
 <p class="submit"><a href="/editPackage?id={{ package.key.id }}">Editer</a></p>
 {% endif %}
 
+ <table class="ink-table alternating hover">
+  <thead>
+   <tr>
+    <th>&nbsp;</th>
+    <th>Use Case</th>
+    <th>Description</th>
+    <th>&nbsp;</th>
+   </tr>
+  </thead>
+  <tbody>
+  {% for u in package.usecases %}
+   <tr>
+    <td align="center">{{ u.order }}</td>
+    <td><a href="/usecase/{{ u.key.id }}">{{ u.name }}</a></td>
+    <td>{{ u.description }}</td>
+    <td><a href="/editUseCase?id={{ u.key.id }}"><i class="fa fa-edit"></i></a></td>
+   </tr>
+  {% endfor %}
+  </tbody>
+ </table>
+
+{% if admin %}
+ <form action="/addUsecase" method="post">
+  <input type="hidden" name="id" value="{{ package.key.id }}" />
+  <table class="form">
+   <tr>
+    <td><label>Use case&nbsp;:&nbsp;</label></td>
+    <td><input name="name" value=""/></td>
+    <td><input class="submit" type="submit" value="Ajouter"/></td>
+   </tr>
+  </table>
+ </form>
+{% endif %}
+
 {% endif %}
 {% endblock %}

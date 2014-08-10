@@ -128,6 +128,37 @@ class AddProject(webapp2.RequestHandler):
     logging.debug('Finish project adding')
     self.redirect('/projects')
 
+class AddUsecase(webapp2.RequestHandler):
+  def post(self):
+    logging.debug('Start use case adding request')
+
+    i = self.request.get('id')
+    n = self.request.get('name')
+    usecase = Usecase(name=n,description='')
+
+    try:
+      id = int(i)
+      package = Package.get(db.Key.from_path('Package', id))
+      usecase.package = package
+    except:
+      logging.error('There was an error retreiving package from the datastore')
+
+    user = users.GetCurrentUser()
+    if user:
+      logging.info('Use case %s added by user %s' % (n, user.nickname()))
+      usecase.created_by = user
+      usecase.updated_by = user
+    else:
+      logging.info('Use case %s added by anonymous user' % n)
+
+    try:
+      usecase.put()
+    except:
+      logging.error('There was an error adding use case %s' % n)
+
+    logging.debug('Finish use case adding')
+    self.redirect('/package/%s' % i)
+
 class ListProjects(BaseRequestHandler):
   def get(self):
     projects = []

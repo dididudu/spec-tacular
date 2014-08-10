@@ -11,6 +11,7 @@ from actions import BaseRequestHandler
 from actions import AddActor
 from actions import AddPackage
 from actions import AddProject
+from actions import AddUsecase
 from actions import EditActor
 from actions import EditPackage
 from actions import EditProject
@@ -37,5 +38,6 @@ application = webapp2.WSGIApplication([
   ('/addProject', AddProject),
   ('/editProject', EditProject),
   ('/project/([-\w]+)', ViewProject),
-  ('/projects', ListProjects)
+  ('/projects', ListProjects),
+  ('/addUsecase', AddUsecase)
 ], debug=True)
