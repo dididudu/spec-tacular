@@ -1,0 +1,11 @@
+indexes:
+
+- kind: Package
+  properties:
+  - name: project
+  - name: order
+
+- kind: UseCase
+  properties:
+  - name: package
+  - name: order
