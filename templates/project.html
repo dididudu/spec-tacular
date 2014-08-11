@@ -61,7 +61,7 @@
    </tr>
   </thead>
   <tbody>
-  {% for p in project.packages %}
+  {% for p in project.get_packages %}
    <tr>
     <td align="center">{{ p.order }}</td>
     <td><a href="/package/{{ p.key.id }}">{{ p.name }}</a></td>
