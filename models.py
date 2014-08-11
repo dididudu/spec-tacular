@@ -19,6 +19,10 @@ class Objet(db.Model):
 class Project(Objet):
   name = db.StringProperty()
   description = db.TextProperty()
+  def get_packages(self):
+    """Return the packages for this project."""
+    packages = Package.gql("WHERE project = :1 ORDER BY order", self.key())
+    return packages
   def __str__(self):
     return self.name
 
@@ -27,6 +31,10 @@ class Package(Objet):
   name = db.StringProperty()
   order = db.IntegerProperty()
   description = db.TextProperty()
+  def get_usecases(self):
+    """Return the usecases for this package."""
+    usecases = UseCase.gql("WHERE package = :1 ORDER BY order", self.key())
+    return usecases
   def __str__(self):
     return self.name
 
