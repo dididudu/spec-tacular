@@ -39,7 +39,6 @@ class Actor(Objet):
     return self.name
 
 class UseCase(Objet):
-  project = db.ReferenceProperty(Project, collection_name='usecases')
   package = db.ReferenceProperty(Package, collection_name='usecases')
   name = db.StringProperty()
   order = db.IntegerProperty()
