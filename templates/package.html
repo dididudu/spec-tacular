@@ -12,7 +12,7 @@
 <p>Projet : <a href="/project/{{ package.project.key.id }}">{{ package.project.name }}</a></p>
 
 {% if package.description %}
-{% autoescape off %}{{ package.description }}{% endautoescape %}
+<p>{% autoescape off %}{{ package.description }}{% endautoescape %}</p>
 {% endif %}
 
 {% if admin %}
