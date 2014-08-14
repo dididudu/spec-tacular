@@ -12,7 +12,7 @@
 <p>Projet : <a href="/project/{{ actor.project.key.id }}">{{ actor.project.name }}</a></p>
 
 {% if actor.description %}
-{% autoescape off %}{{ actor.description }}{% endautoescape %}
+<p>{% autoescape off %}{{ actor.description }}{% endautoescape %}</p>
 {% endif %}
 
 {% if admin %}
