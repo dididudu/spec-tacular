@@ -5,7 +5,7 @@
 
 {% block body %}
 
- <h4>Package {{ package.name }}</h4>
+ <h4>{{ package.order}}. Package {{ package.name }}</h4>
 
 {% if user %}
 
@@ -16,7 +16,7 @@
 {% endif %}
 
 {% if admin %}
-<p class="submit"><a href="/editPackage?id={{ package.key.id }}">Editer</a></p>
+<p><a href="/editPackage?id={{ package.key.id }}"><i class="fa fa-edit"></i></a></p>
 {% endif %}
 
  <table class="ink-table alternating hover">
