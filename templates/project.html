@@ -17,6 +17,8 @@
 <p class="submit"><a href="/editProject?id={{ project.key.id }}">Editer</a></p>
 {% endif %}
 
+<h5>Acteurs</h5>
+
  <table class="ink-table alternating hover">
   <thead>
    <tr>
@@ -54,32 +56,12 @@
 {% for p in project.get_packages %}
 <h5>{{ p.order }}. {{ p.name }}</h5>
  <p>{{ p.description }}</p>
+ <p><a href="/editPackage?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></p>
  {% for u in p.get_usecases %}
  <h6>{{ p.order }}.{{ u.order }} {{ u.name }}</h6>
  <p>{{ u.description }}</p>
  {% endfor %}
 {% endfor %}
-
-<table class="ink-table alternating hover">
-  <thead>
-   <tr>
-    <th>&nbsp;</th>
-    <th>Package</th>
-    <th>Description</th>
-    <th>&nbsp;</th>
-   </tr>
-  </thead>
-  <tbody>
-  {% for p in project.get_packages %}
-   <tr>
-    <td align="center">{{ p.order }}</td>
-    <td><a href="/package/{{ p.key.id }}">{{ p.name }}</a></td>
-    <td>{{ p.description }}</td>
-    <td><a href="/editPackage?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></td>
-   </tr>
-  {% endfor %}
-  </tbody>
- </table>
 
 {% if admin %}
  <form action="/addPackage" method="post">
