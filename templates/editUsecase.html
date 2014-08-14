@@ -26,6 +26,14 @@
         </div>
 
         <div class="control-group large-50 medium-50 small-100">
+          {{ form.package.label }}
+          <div class="control">
+            {{ form.package }}
+          </div>
+          {% if form.package.errors %}<p class="tip">{{form.package.errors}}</p>{% endif %}
+        </div>
+
+        <div class="control-group large-50 medium-50 small-100">
           {{ form.order.label }}
           <div class="control">
             {{ form.order }}
