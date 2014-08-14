@@ -15,7 +15,7 @@
 </p>
 
 {% if usecase.description %}
-{% autoescape off %}{{ usecase.description }}{% endautoescape %}
+<p>{% autoescape off %}{{ usecase.description }}{% endautoescape %}</p>
 {% endif %}
 
 {% if admin %}
