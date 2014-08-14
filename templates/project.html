@@ -54,12 +54,13 @@
 {% endif %}
 
 {% for p in project.get_packages %}
-<h5>{{ p.order }}. {{ p.name }}</h5>
+<h5>Package {{ p.order }}. {{ p.name }}</h5>
  <p>{{ p.description }}</p>
  <p><a href="/editPackage?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></p>
  {% for u in p.get_usecases %}
- <h6>{{ p.order }}.{{ u.order }} {{ u.name }}</h6>
+ <h6>Use Case {{ p.order }}.{{ u.order }} {{ u.name }}</h6>
  <p>{{ u.description }}</p>
+ <p><a href="/editUseCase?id={{ u.key.id }}"><i class="fa fa-edit"></i></a></p>
  {% endfor %}
 {% endfor %}
 
