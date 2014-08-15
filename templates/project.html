@@ -3,7 +3,26 @@
 {% block title %} - Projet {{ project.name }}{% endblock %}
 {% block description %}Projet {{ project.name }}{% endblock %}
 
-{% block js %}
+{% block body %}
+
+ <h4>Projet {{ project.name }}</h4>
+
+{% if user %}
+
+{% if project.description %}
+<p>{% autoescape off %}{{ project.description }}{% endautoescape %}</p>
+{% endif %}
+
+{% if admin %}
+<p><a href="/editProject?id={{ project.key.id }}"><i class="fa fa-edit"></i></a></p>
+{% endif %}
+
+<h5>Acteurs</h5>
+
+<canvas id="diag_contexte" width="350" height="350"style=" border: dashed 1px #444;"> 
+  Texte alternatif pour les navigateurs ne supportant pas Canvas.
+</canvas>
+
 <script type="text/javascript">
 
   var c = document.getElementById("diag_contexte");
@@ -36,27 +55,6 @@
   ctx.stroke();
 
 </script>
-{% endblock %}
-
-{% block body %}
-
- <h4>Projet {{ project.name }}</h4>
-
-{% if user %}
-
-{% if project.description %}
-<p>{% autoescape off %}{{ project.description }}{% endautoescape %}</p>
-{% endif %}
-
-{% if admin %}
-<p><a href="/editProject?id={{ project.key.id }}"><i class="fa fa-edit"></i></a></p>
-{% endif %}
-
-<h5>Acteurs</h5>
-
-<canvas id="diag_contexte" width="350" height="350"> 
-  Texte alternatif pour les navigateurs ne supportant pas Canvas.
-</canvas>
 
  <table class="ink-table alternating hover">
   <thead>
