@@ -19,7 +19,7 @@
 
 <h5>Acteurs</h5>
 
-<canvas id="diag_contexte" width="350" height="350"style=" border: dashed 1px #444;"> 
+<canvas id="diag_contexte" width="350" height="350" style="align: center; border: dashed 1px #444;"> 
   Texte alternatif pour les navigateurs ne supportant pas Canvas.
 </canvas>
 
@@ -90,7 +90,7 @@
  </form>
 {% endif %}
 
-<canvas id="diag_packages" width="350" height="350"> 
+<canvas id="diag_packages" width="350" height="350" style="align: center; border: dashed 1px #444;"> 
   Texte alternatif pour les navigateurs ne supportant pas Canvas.
 </canvas>
 
@@ -101,9 +101,21 @@
 
 <p><a href="/editPackage?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></p>
 
-<canvas id="diag_package{{ p.order }}" width="350" height="350"> 
+<canvas id="diag_package{{ p.order }}" width="350" height="350" style="align: center; border: dashed 1px #444;"> 
   Texte alternatif pour les navigateurs ne supportant pas Canvas.
 </canvas>
+
+<script type="text/javascript">
+  var c = document.getElementById("diag_package{{ p.order }}");
+  var ctx = c.getContext("2d");
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  ctx.arc(150,150,100,0,Math.PI*2,true);
+  ctx.strokeStyle = "lightblue";
+  ctx.fillStyle = "bisque";
+  ctx.fill();
+  ctx.stroke();
+</script>
 
  {% for u in p.get_usecases %}
  <h6>{{ p.order }}.{{ u.order }} Use Case {{ u.name }}</h6>

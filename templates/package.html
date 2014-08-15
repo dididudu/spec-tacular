@@ -33,7 +33,7 @@
    <tr>
     <td align="center">{{ u.order }}</td>
     <td><a href="/usecase/{{ u.key.id }}">{{ u.name }}</a></td>
-    <td>{{ u.description }}</td>
+    <td>{% autoescape off %}{{ u.description }}{% endautoescape %}</td>
     <td><a href="/editUseCase?id={{ u.key.id }}"><i class="fa fa-edit"></i></a></td>
    </tr>
   {% endfor %}
