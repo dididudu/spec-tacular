@@ -3,6 +3,34 @@
 {% block title %} - Projet {{ project.name }}{% endblock %}
 {% block description %}Projet {{ project.name }}{% endblock %}
 
+{% block js %}
+
+{% endblock %}
+<script type="text/javascript">
+
+  var c = document.getElementById("diag_contexte");
+  var ctx = c.getContext("2d");
+  ctx.beginPath();      // Debut du chemin
+  ctx.moveTo(150,80);   // Le trace part du point 150,80
+  ctx.lineTo(300,230);  // Un segment est ajoute vers 300,230
+  ctx.lineTo(150,230);  // Un segment est ajoute vers 150,230
+  ctx.closePath();      // Fermeture du chemin
+  ctx.fillStyle = "lightblue"; // Definition de la couleur de remplissage
+  ctx.fill();           // Remplissage du dernier chemin trace
+
+  // Coque du bateau
+  ctx.beginPath();      // Debut d'un autre chemin
+  ctx.moveTo(50,250);
+  ctx.lineTo(100,300);
+  ctx.lineTo(250,300);
+  ctx.lineTo(300,250);
+  ctx.fillStyle = "peru";
+  ctx.strokeStyle = "sienna"; // Definition de la couleur de contour
+  ctx.lineWidth = 5;         // Definition de la largeur de ligne
+  ctx.fill();            // Application du remplissage
+  ctx.stroke();  
+
+</script>
 {% block body %}
 
  <h4>Projet {{ project.name }}</h4>
@@ -18,6 +46,10 @@
 {% endif %}
 
 <h5>Acteurs</h5>
+
+<canvas id="diag_contexte" width="350" height="350"> 
+  Texte alternatif pour les navigateurs ne supportant pas Canvas.
+</canvas>
 
  <table class="ink-table alternating hover">
   <thead>
@@ -53,10 +85,21 @@
  </form>
 {% endif %}
 
+<canvas id="diag_packages" width="350" height="350"> 
+  Texte alternatif pour les navigateurs ne supportant pas Canvas.
+</canvas>
+
 {% for p in project.get_packages %}
 <h5>{{ p.order }}. Package {{ p.name }}</h5>
+
  <p>{{ p.description }}</p>
+
  <p><a href="/editPackage?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></p>
+
+<canvas id="diag_package{{ p.order }}" width="350" height="350"> 
+  Texte alternatif pour les navigateurs ne supportant pas Canvas.
+</canvas>
+
  {% for u in p.get_usecases %}
  <h6>{{ p.order }}.{{ u.order }} Use Case {{ u.name }}</h6>
  <p>{{ u.description }}</p>
