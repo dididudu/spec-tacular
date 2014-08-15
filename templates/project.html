@@ -10,7 +10,7 @@
 {% if user %}
 
 {% if project.description %}
-<p>{% autoescape off %}{{ project.description }}{% endautoescape %}</p>
+{% autoescape off %}{{ project.description }}{% endautoescape %}
 {% endif %}
 
 {% if admin %}
@@ -97,7 +97,7 @@
 {% for p in project.get_packages %}
 <h5>{{ p.order }}. Package {{ p.name }}</h5>
 
- <p>{{ p.description }}</p>
+ {{ p.description }}
 
  <p><a href="/editPackage?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></p>
 
@@ -107,7 +107,7 @@
 
  {% for u in p.get_usecases %}
  <h6>{{ p.order }}.{{ u.order }} Use Case {{ u.name }}</h6>
- <p>{{ u.description }}</p>
+ {{ u.description }}
  <p><a href="/editUseCase?id={{ u.key.id }}"><i class="fa fa-edit"></i></a></p>
  {% endfor %}
 {% endfor %}
