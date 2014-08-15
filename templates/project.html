@@ -17,8 +17,6 @@
 <p><a href="/editProject?id={{ project.key.id }}"><i class="fa fa-edit"></i></a></p>
 {% endif %}
 
-<h5>Acteurs</h5>
-
 <canvas id="diag_contexte" width="350" height="350" style="align: center; border: dashed 1px #444;"> 
   Texte alternatif pour les navigateurs ne supportant pas Canvas.
 </canvas>
@@ -56,6 +54,8 @@
 
 </script>
 
+<h5>1. Acteurs</h5>
+
  <table class="ink-table alternating hover">
   <thead>
    <tr>
@@ -90,12 +90,14 @@
  </form>
 {% endif %}
 
+<h5>2. Packages</h5>
+
 <canvas id="diag_packages" width="350" height="350" style="align: center; border: dashed 1px #444;"> 
   Texte alternatif pour les navigateurs ne supportant pas Canvas.
 </canvas>
 
 {% for p in project.get_packages %}
-<h5>{{ p.order }}. Package {{ p.name }}</h5>
+<h5>{{ p.order+2 }}. Package {{ p.name }}</h5>
 
 {% autoescape off %}{{ p.description }}{% endautoescape %}
 
