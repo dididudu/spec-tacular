@@ -97,7 +97,7 @@
 </canvas>
 
 {% for p in project.get_packages %}
-<h5>{{ p.order+2 }}. Package {{ p.name }}</h5>
+<h5>2.{{ p.order }}. Package {{ p.name }}</h5>
 
 {% autoescape off %}{{ p.description }}{% endautoescape %}
 
@@ -120,7 +120,7 @@
 </script>
 
  {% for u in p.get_usecases %}
- <h6>{{ p.order }}.{{ u.order }} Use Case {{ u.name }}</h6>
+ <h6>2.{{ p.order }}.{{ u.order }} Use Case {{ u.name }}</h6>
 
  {% autoescape off %}{{ u.description }}{% endautoescape %}
 
