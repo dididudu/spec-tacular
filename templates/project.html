@@ -70,7 +70,7 @@
    <tr>
     <td><a href="/actor/{{ a.key.id }}">{{ a.name }}</a></td>
     <td align="center"><i class="fa fa-{{ a.type }}"></i></td>
-    <td>{{ a.description }}</td>
+    <td>{% autoescape off %}{{ a.description }}{% endautoescape %}</td>
     <td><a href="/editActor?id={{ a.key.id }}"><i class="fa fa-edit"></i></a></td>
    </tr>
   {% endfor %}
@@ -97,9 +97,9 @@
 {% for p in project.get_packages %}
 <h5>{{ p.order }}. Package {{ p.name }}</h5>
 
- {{ p.description }}
+{% autoescape off %}{{ p.description }}{% endautoescape %}
 
- <p><a href="/editPackage?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></p>
+<p><a href="/editPackage?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></p>
 
 <canvas id="diag_package{{ p.order }}" width="350" height="350"> 
   Texte alternatif pour les navigateurs ne supportant pas Canvas.
@@ -107,9 +107,12 @@
 
  {% for u in p.get_usecases %}
  <h6>{{ p.order }}.{{ u.order }} Use Case {{ u.name }}</h6>
- {{ u.description }}
+
+ {% autoescape off %}{{ u.description }}{% endautoescape %}
+
  <p><a href="/editUseCase?id={{ u.key.id }}"><i class="fa fa-edit"></i></a></p>
  {% endfor %}
+
 {% endfor %}
 
 {% if admin %}

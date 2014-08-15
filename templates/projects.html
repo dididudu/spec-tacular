@@ -17,7 +17,7 @@
   {% for p in projects %}
    <tr>
     <td><a href="/project/{{ p.key.id }}">{{ p.name }}</a></td>
-    <td>{{ p.description }}</td>
+    <td>{% autoescape off %}{{ p.description }}{% endautoescape %}</td>
     <td><a href="/editProject?id={{ p.key.id }}"><i class="fa fa-edit"></i></a></td>
    </tr>
   {% endfor %}
