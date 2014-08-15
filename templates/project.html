@@ -4,8 +4,6 @@
 {% block description %}Projet {{ project.name }}{% endblock %}
 
 {% block js %}
-
-{% endblock %}
 <script type="text/javascript">
 
   var c = document.getElementById("diag_contexte");
@@ -30,7 +28,16 @@
   ctx.fill();            // Application du remplissage
   ctx.stroke();  
 
+  // Mat
+  ctx.beginPath();
+  ctx.moveTo(140,50);
+  ctx.lineTo(140,250);
+  ctx.lineWidth = 10;
+  ctx.stroke();
+
 </script>
+{% endblock %}
+
 {% block body %}
 
  <h4>Projet {{ project.name }}</h4>
