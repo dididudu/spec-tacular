@@ -53,6 +53,11 @@ class UseCase(Objet):
   name = db.StringProperty()
   order = db.IntegerProperty()
   description = db.TextProperty()
+  actors = db.ListProperty(db.Key)
+
+  def my_actors(self):
+    return Actor.get(self.actors)
+
   def __str__(self):
     return self.name
 

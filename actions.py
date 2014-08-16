@@ -43,6 +43,41 @@ class BaseRequestHandler(webapp2.RequestHandler):
     path = os.path.join(directory, os.path.join('templates', template_name))
     self.response.out.write(template.render(path, values, debug=_DEBUG))
 
+class AddActorToUseCase(webapp2.RequestHandler):
+  def get(self):
+    logging.info('Start adding actor to use case request')
+
+    actor = None
+    try:
+      id = int(self.request.get('a'))
+      actor = Actor.get(db.Key.from_path('Actor', id))
+    except:
+      actor = None
+
+    if actor:
+      usecase = None
+      try:
+        id = int(self.request.get('id'))
+        usecase = UseCase.get(db.Key.from_path('UseCase', id))
+      except:
+        usecase = None
+
+      if usecase:
+        if actor.key() not in usecase.actors:
+          usecase.actors.append(actor.key())
+          usecase.put()
+          logging.info('Finish actor adding')
+        else:
+          usecase.actors.remove(actor.key())
+          usecase.put()
+          logging.info('Actor already added')
+      else:
+        logging.info('Use case not found so no actor adding')
+    else:
+      logging.info('Actor not found so no actor adding')
+
+    self.redirect('/usecase/%s' % id)
+
 class AddActor(webapp2.RequestHandler):
   def post(self):
     logging.debug('Start actor adding request')
