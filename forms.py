@@ -16,6 +16,8 @@ from models import UseCase
 class ProjectForm(Form):
   name = TextField(u'Nom', validators=[validators.required()])
   description = TextAreaField(u'Description', validators=[validators.optional()])
+  intro_actors = TextAreaField(u'Intro acteurs', validators=[validators.optional()])
+  intro_packages = TextAreaField(u'Intro packages', validators=[validators.optional()])
 
 class PackageForm(Form):
   project = ReferencePropertyField(u'Projet', reference_class=Project)
