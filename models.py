@@ -19,6 +19,8 @@ class Objet(db.Model):
 class Project(Objet):
   name = db.StringProperty()
   description = db.TextProperty()
+  intro_actors = db.TextProperty()
+  intro_packages = db.TextProperty()
   def get_packages(self):
     """Return the packages for this project."""
     packages = Package.gql("WHERE project = :1 ORDER BY order", self.key())
