@@ -56,6 +56,8 @@
 
 <h5>1. Acteurs</h5>
 
+{% autoescape off %}{{ project.intro_actors }}{% endautoescape %}
+
  <table class="ink-table alternating hover">
   <thead>
    <tr>
@@ -92,7 +94,7 @@
 
 <h5>2. Packages</h5>
 
-{{ project.intro_packages }}
+{% autoescape off %}{{ project.intro_packages }}{% endautoescape %}
 
 <canvas id="diag_packages" width="350" height="350" style="align: center; border: dashed 1px #444;"> 
   Texte alternatif pour les navigateurs ne supportant pas Canvas.
