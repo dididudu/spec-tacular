@@ -108,6 +108,8 @@
  {% for u in p.get_usecases %}
  <h6>2.{{ p.order }}.{{ u.order }} Use Case {{ u.name }}</h6>
 
+ <p>Acteurs : {% for a in u.my_actors %}<a href="/actor/{{ a.key.id }}">{{ a.name }}</a>, {% endfor %}</p>
+
  {% autoescape off %}{{ u.description }}{% endautoescape %}
 
  <p><a href="/editUseCase?id={{ u.key.id }}"><i class="fa fa-edit"></i></a></p>
