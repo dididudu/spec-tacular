@@ -25,32 +25,14 @@
 
   var c = document.getElementById("diag_contexte");
   var ctx = c.getContext("2d");
-  ctx.beginPath();      // Debut du chemin
-  ctx.moveTo(150,80);   // Le trace part du point 150,80
-  ctx.lineTo(300,230);  // Un segment est ajoute vers 300,230
-  ctx.lineTo(150,230);  // Un segment est ajoute vers 150,230
-  ctx.closePath();      // Fermeture du chemin
-  ctx.fillStyle = "lightblue"; // Definition de la couleur de remplissage
-  ctx.fill();           // Remplissage du dernier chemin trace
-
-  // Coque du bateau
-  ctx.beginPath();      // Debut d'un autre chemin
-  ctx.moveTo(50,250);
-  ctx.lineTo(100,300);
-  ctx.lineTo(250,300);
-  ctx.lineTo(300,250);
-  ctx.fillStyle = "peru";
-  ctx.strokeStyle = "sienna"; // Definition de la couleur de contour
-  ctx.lineWidth = 5;         // Definition de la largeur de ligne
-  ctx.fill();            // Application du remplissage
-  ctx.stroke();  
-
-  // Mat
   ctx.beginPath();
-  ctx.moveTo(140,50);
-  ctx.lineTo(140,250);
-  ctx.lineWidth = 10;
-  ctx.stroke();
+  ctx.moveTo(100,100);
+  ctx.lineTo(100,200);
+  ctx.lineTo(200,200);
+  ctx.lineTo(200,100);
+  ctx.closePath();
+  ctx.fillStyle = "lightblue";
+  ctx.fill();
 
 </script>
 
