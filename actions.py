@@ -45,6 +45,10 @@ class BaseRequestHandler(webapp2.RequestHandler):
 
 class AddActorToUseCase(webapp2.RequestHandler):
   def post(self):
+    logging.debug('Start actor adding to use case request')
+
+    actor = None
+    try:
       id = int(self.request.get('a'))
       actor = Actor.get(db.Key.from_path('Actor', id))
     except:
