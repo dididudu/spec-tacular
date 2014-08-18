@@ -44,7 +44,7 @@ class BaseRequestHandler(webapp2.RequestHandler):
     self.response.out.write(template.render(path, values, debug=_DEBUG))
 
 class AddActorToUseCase(webapp2.RequestHandler):
-  def post:
+  def post(self):
       id = int(self.request.get('a'))
       actor = Actor.get(db.Key.from_path('Actor', id))
     except:
