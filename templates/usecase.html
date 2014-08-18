@@ -14,6 +14,8 @@
  (projet <a href="/project/{{ usecase.package.project.key.id }}">{{ usecase.package.project.name }}</a>)
 </p>
 
+<p>Acteurs : {% for a in usecase.my_actors %}<a href="/actor/{{ a.key.id }}">{{ a.name }}</a>, {% endfor %}
+
 {% if usecase.description %}
 {% autoescape off %}{{ usecase.description }}{% endautoescape %}
 {% endif %}
