@@ -11,6 +11,8 @@
 
 <p>Projet : <a href="/project/{{ actor.project.key.id }}">{{ actor.project.name }}</a></p>
 
+<p>Use cases : {% for u in actor.get_usecases %}<a href="/usecase/{{ u.key.id }}">{{ u.name }}</a>, {% endfor %}</p>
+
 {% if actor.description %}
 {% autoescape off %}{{ actor.description }}{% endautoescape %}
 {% endif %}
