@@ -22,5 +22,22 @@
 <p><a href="/editUseCase?id={{ usecase.key.id }}"><i class="fa fa-edit"></i></a></p>
 {% endif %}
 
+{% if admin %}
+<form action="/addActor2UseCase" method="post">
+<input type="hidden" name="id" value="{{ usecase.key.id }}" />
+<table class="form">
+<tr>
+<td><label>Acteur&nbsp;:&nbsp;</label></td>
+<td>
+ <select name="a">
+  <option>Acteur</option>
+ </select>
+</td>
+<td><input class="submit" type="submit" value="Ajouter"/></td>
+</tr>
+</table>
+</form>
+{% endif %}
+
 {% endif %}
 {% endblock %}
