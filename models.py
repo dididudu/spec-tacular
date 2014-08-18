@@ -45,7 +45,7 @@ class Actor(Objet):
   name = db.StringProperty()
   type = db.StringProperty()
   description = db.TextProperty()
-  def usecases(self):
+  def get_usecases(self):
     return UseCase.gql("WHERE actors = :1", self.key())
   def __str__(self):
     return self.name
