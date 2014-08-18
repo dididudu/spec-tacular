@@ -9,6 +9,7 @@ import webapp2
 
 from actions import BaseRequestHandler
 from actions import AddActor
+from actions import AddActorToUseCase
 from actions import AddPackage
 from actions import AddProject
 from actions import AddUseCase
@@ -32,6 +33,7 @@ class MainPage(BaseRequestHandler):
 application = webapp2.WSGIApplication([
   ('/', MainPage),
   ('/addActor', AddActor),
+  ('/addActor2UseCase', AddActorToUseCase),
   ('/editActor', EditActor),
   ('/actor/([-\w]+)', ViewActor),
   ('/addPackage', AddPackage),
