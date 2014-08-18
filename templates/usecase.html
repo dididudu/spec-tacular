@@ -32,7 +32,9 @@
 <td><label>Acteur&nbsp;:&nbsp;</label></td>
 <td>
  <select name="a">
-  <option>Acteur</option>
+ {% for a in usecase.package.project.actors %}
+  <option value="{{ a.key.id }}">{{ a.name }}</option>
+ {% endfor %}
  </select>
 </td>
 <td><input class="submit" type="submit" value="Ajouter"/></td>
