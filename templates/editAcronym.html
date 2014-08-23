@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %} - Edition d'acronyme{% endblock %}
+{% block description %}Edition d'acronyme {{ acronym.name }}{% endblock %}
+
+
+{% block tiny_mce %}
+<script type="text/javascript" src="/static/js/tiny_mce/tiny_mce.js" ></script >
+<script type="text/javascript">
+	tinyMCE.init({
+		mode : "textareas",
+		theme : "advanced",
+		theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,justifyright,|,cut,copy,paste,|,bullist,numlist,|,outdent,indent,|,fontsizeselect,|,code",
+		theme_advanced_toolbar_location : "top",
+	        theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "none",
+		width : "580",
+		height : "250"
+	});
+</script>
+{% endblock %}
+
+
+{% block body %}
+
+ <h4>Edition d'acronyme</h4>
+
+{% if user %}
+
+    <form method="post" class="ink-form" action="{{ action }}">
+
+      <input type="hidden" name="_id" value="{{ id }}" />
+
+{% autoescape off %}
+
+      <fieldset class="column-group gutters">
+
+        <div class="control-group large-50 medium-50 small-100">
+          {{ form.name.label }}
+          <div class="control">
+            {{ form.name }}
+          </div>
+          {% if form.name.errors %}<p class="tip">{{form.name.errors}}</p>{% endif %}
+        </div>
+
+        <div class="control-group large-100 medium-100 small-100">
+          {{ form.description.label }}
+          <div class="control">
+            {{ form.description }}
+          </div>
+        </div>
+
+      </fieldset>
+
+{% endautoescape %}
+
+      <input type="submit" value="Enregistrer" />
+
+    </form>
+
+{% endif %}
+
+{% endblock %}

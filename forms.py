@@ -8,6 +8,7 @@ __author__ = 'Didier Dulac'
 from wtforms import Form, BooleanField, DateField, FloatField, IntegerField, SelectField, TextField, TextAreaField, validators
 from wtforms.ext.appengine.fields import ReferencePropertyField
 
+from models import Acronym
 from models import Actor
 from models import Package
 from models import Project
@@ -35,4 +36,9 @@ class UseCaseForm(Form):
   package = ReferencePropertyField(u'Package', reference_class=Package)
   name = TextField(u'Nom', validators=[validators.required()])
   order = IntegerField(u'Rang', validators=[validators.required()])
+  description = TextAreaField(u'Description', validators=[validators.optional()])
+
+class AcronymForm(Form):
+  project = ReferencePropertyField(u'Projet', reference_class=Project)
+  name = TextField(u'Nom', validators=[validators.required()])
   description = TextAreaField(u'Description', validators=[validators.optional()])

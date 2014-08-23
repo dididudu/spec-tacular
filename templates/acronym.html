@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} - Acronyme {{ acronym.name }}{% endblock %}
+{% block description %}Acronyme {{ acronym.name }}{% endblock %}
+
+{% block body %}
+
+ <h4>Acronyme {{ acronym.name }}</h4>
+
+{% if user %}
+
+<p>Projet : <a href="/project/{{ acronym.project.key.id }}">{{ acronym.project.name }}</a></p>
+
+{% if acronym.description %}
+{% autoescape off %}{{ acronym.description }}{% endautoescape %}
+{% endif %}
+
+{% if admin %}
+<p><a href="/editAcronym?id={{ acronym.key.id }}"><i class="fa fa-edit"></i></a></p>
+{% endif %}
+
+{% endif %}
+{% endblock %}

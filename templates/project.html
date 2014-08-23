@@ -26,17 +26,51 @@
   var c = document.getElementById("diag_contexte");
   var ctx = c.getContext("2d");
   ctx.beginPath();
-  ctx.moveTo(100,100);
-  ctx.lineTo(100,200);
+  ctx.moveTo(150,150);
+  ctx.lineTo(150,200);
   ctx.lineTo(200,200);
-  ctx.lineTo(200,100);
+  ctx.lineTo(200,150);
   ctx.closePath();
   ctx.fillStyle = "lightblue";
   ctx.fill();
 
 </script>
 
-<h5>1. Acteurs</h5>
+<h5>1. D&eacute;finitions</h5>
+
+ <table class="ink-table alternating hover">
+  <thead>
+   <tr>
+    <th>Acronym</th>
+    <th>Description</th>
+    <th>&nbsp;</th>
+   </tr>
+  </thead>
+  <tbody>
+  {% for ac in project.acronyms %}
+   <tr>
+    <td><b>{{ ac.name }}</b></td>
+    <td>{% autoescape off %}{{ ac.description }}{% endautoescape %}</td>
+    <td><a href="/editAcronym?id={{ ac.key.id }}"><i class="fa fa-edit"></i></a></td>
+   </tr>
+  {% endfor %}
+  </tbody>
+ </table>
+
+{% if admin %}
+ <form action="/addAcronym" method="post">
+  <input type="hidden" name="id" value="{{ project.key.id }}" />
+  <table class="form">
+   <tr>
+    <td><label>Acronyme&nbsp;:&nbsp;</label></td>
+    <td><input name="name" value=""/></td>
+    <td><input class="submit" type="submit" value="Ajouter"/></td>
+   </tr>
+  </table>
+ </form>
+{% endif %}
+
+<h5>2. Acteurs</h5>
 
 {% autoescape off %}{{ project.intro_actors }}{% endautoescape %}
 
@@ -74,7 +108,7 @@
  </form>
 {% endif %}
 
-<h5>2. Packages</h5>
+<h5>3. Packages</h5>
 
 {% autoescape off %}{{ project.intro_packages }}{% endautoescape %}
 
@@ -89,7 +123,7 @@
 </canvas>
 
 {% for p in project.get_packages %}
-<h5>2.{{ p.order }}. Package {{ p.name }}</h5>
+<h5>3.{{ p.order }}. Package {{ p.name }}</h5>
 
 {% autoescape off %}{{ p.description }}{% endautoescape %}
 
@@ -112,7 +146,7 @@
 </script>
 
  {% for u in p.get_usecases %}
- <h6>2.{{ p.order }}.{{ u.order }} Use Case {{ u.name }}</h6>
+ <h6>3.{{ p.order }}.{{ u.order }} Use Case {{ u.name }}</h6>
 
  <p>Acteurs : {% for a in u.my_actors %}<a href="/actor/{{ a.key.id }}">{{ a.name }}</a>, {% endfor %}</p>
 

@@ -28,6 +28,13 @@ class Project(Objet):
   def __str__(self):
     return self.name
 
+class Acronym(Objet):
+  project = db.ReferenceProperty(Project, collection_name='acronyms')
+  name = db.StringProperty()
+  description = db.TextProperty()
+  def __str__(self):
+    return self.name
+
 class Package(Objet):
   project = db.ReferenceProperty(Project, collection_name='packages')
   name = db.StringProperty()

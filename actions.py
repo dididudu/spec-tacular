@@ -14,11 +14,13 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 
+from models import Acronym
 from models import Actor
 from models import Package
 from models import Project
 from models import UseCase
 
+from forms import AcronymForm
 from forms import ActorForm
 from forms import PackageForm
 from forms import ProjectForm
@@ -77,6 +79,37 @@ class AddActorToUseCase(webapp2.RequestHandler):
       logging.info('Actor not found so no actor adding')
 
     self.redirect('/usecase/%s' % id)
+
+class AddAcronym(webapp2.RequestHandler):
+  def post(self):
+    logging.debug('Start acronym adding request')
+
+    i = self.request.get('id')
+    n = self.request.get('name')
+    acronym = Acronym(name=n,description='')
+
+    try:
+      id = int(i)
+      project = Project.get(db.Key.from_path('Project', id))
+      acronym.project = project
+    except:
+      logging.error('There was an error retreiving project from the datastore')
+
+    user = users.GetCurrentUser()
+    if user:
+      logging.info('Acronym %s added by user %s' % (n, user.nickname()))
+      acronym.created_by = user
+      acronym.updated_by = user
+    else:
+      logging.info('Acronym %s added by anonymous user' % n)
+
+    try:
+      acronym.put()
+    except:
+      logging.error('There was an error adding acronym %s' % n)
+
+    logging.debug('Finish acronym adding')
+    self.redirect('/project/%s' % i)
 
 class AddActor(webapp2.RequestHandler):
   def post(self):
@@ -211,6 +244,31 @@ class ListProjects(BaseRequestHandler):
 
     self.generate('projects.html', template_values)
 
+class ViewAcronym(BaseRequestHandler):
+  def get(self, arg):
+    title = 'Acronyme introuvable'
+    acronym = None
+    # Get and displays the acronym informations
+    try:
+      id = int(arg)
+      acronym = Acronym.get(db.Key.from_path('Acronym', id))
+    except:
+      acronym = None
+      logging.error('There was an error retreiving acronym and its informations from the datastore')
+
+    if not acronym:
+      self.error(403)
+      return
+    else:
+      title = acronym.name
+
+    template_values = {
+      'title': title,
+      'acronym': acronym
+      }
+
+    self.generate('acronym.html', template_values)
+
 class ViewActor(BaseRequestHandler):
   def get(self, arg):
     title = 'Acteur introuvable'
@@ -310,6 +368,51 @@ class ViewUseCase(BaseRequestHandler):
       }
 
     self.generate('usecase.html', template_values)
+
+class EditAcronym(BaseRequestHandler):
+  def go(self, id, form):
+    values = {
+      'title': "Edition d'acronyme",
+      'action': "/editAcronym",
+      'id': id,
+      'form': form
+    }
+    self.generate('editAcronym.html', values)
+
+  def get(self):
+    obj = None
+    try:
+      id = int(self.request.get('id'))
+      obj = Acronym.get(db.Key.from_path('Acronym', id))
+    except:
+      obj = None
+    if not obj:
+      self.error(403)
+      return
+    self.go(id, AcronymForm(None, obj))
+
+  def post(self):
+    obj = None
+    try:
+      id = int(self.request.get('_id'))
+      obj = Acronym.get(db.Key.from_path('Acronym', id))
+    except:
+      obj = None
+    if not obj:
+      self.error(403)
+      return
+    form = AcronymForm(self.request.POST, obj)
+    if form.validate():
+      logging.info('Acronym %d updated by user %s' % (id, users.GetCurrentUser().nickname()))
+      form.populate_obj(obj)
+      obj.updated_by = users.GetCurrentUser()
+      try:
+        obj.put()
+      except:
+        logging.error('There was an error updating Acronym %s' % self.request.get('name'))
+      self.redirect('/acronym/%s' % id)
+    else:
+      self.go(id, form)
 
 class EditActor(BaseRequestHandler):
   def go(self, id, form):
